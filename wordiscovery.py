@@ -186,27 +186,6 @@ class WordDiscovery(object):
                 continue
             final[k] = (word_prob, mi_min, en_min)
         return final
-    
-
-
-# In[154]:
-
-
-def get_new_word(words):
-    with open("chinesewords.dict", "r") as inf:
-        existed_words = {}
-        for word in inf:
-            word = word.strip()
-            existed_words[word] = True
-    new_words = []
-    for word in words:
-        if word in existed_words:
-            continue
-        else:
-            existed_words[word] = True
-            new_words.append(word)
-    return new_words
-
 
 # In[155]:
 
@@ -216,21 +195,13 @@ def main(filename):
         text = inf.read()
     f = WordDiscovery(6)
     word_info = f.parse(text,
-                        entropy_threshold=0.5,
+                        entropy_threshold=0.0,
                         mutualinfo_threshold=5,
                         freq_threshold=3)
-    # for k, v in sorted(word_info.items(),
-    #                    key=lambda x:x[1][0],
-    #                    reverse=False):
-        #print("%+9s\t%-5d\t%.4f\t%.4f"%(k, v[0], v[1], v[2]))
-
-    news = {}
-    for word in get_new_word(word_info.keys()):
-        news[word] = word_info[word][0]
-
-    print([k for k, v in sorted(news.items(),
-                       key=lambda x:x[1],
-                       reverse=True)])
+    for k, v in sorted(word_info.items(),
+                       key=lambda x:x[1][0],
+                       reverse=False):
+        print("%+9s\t%-5d\t%.4f\t%.4f"%(k, v[0], v[1], v[2]))
 
 
 if __name__ == "__main__":
