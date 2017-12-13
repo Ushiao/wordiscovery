@@ -198,4 +198,4 @@ def _fetch_final(fw_entropy，
 
 ## 代码下载地址
 
-git clone https://github.com/Ushiao/new-word-discovery.git
+git clone https://github.com/Ushiao/wordiscovery.git

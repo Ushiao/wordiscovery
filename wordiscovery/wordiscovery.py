@@ -1,8 +1,6 @@
-
 # coding: utf-8
 
 import math
-import re
 
 
 class TrieNode(object):
@@ -167,7 +165,6 @@ class WordDiscovery(object):
 
         final = {}
         for k, v in fw_entropy.items():
-            last_node = self.fw_ngram
             if k[::-1] in bw_mi and k in fw_mi:
                 mi_min = min(fw_mi[k][0], bw_mi[k[::-1]][0])
                 word_prob = min(fw_mi[k][1], bw_mi[k[::-1]][1])
@@ -176,10 +173,9 @@ class WordDiscovery(object):
             else:
                 continue
             if word_prob < freq_threshold:
-                 continue
+                continue
             if k[::-1] in bw_entropy:
                 en_min = min(v, bw_entropy[k[::-1]])
-#                 if en_min < entropy_threshold:
                 if en_min < entropy_threshold:
                     continue
             else:
@@ -195,8 +191,8 @@ def main(filename):
         text = inf.read()
     f = WordDiscovery(6)
     word_info = f.parse(text,
-                        entropy_threshold=0.0,
-                        mutualinfo_threshold=5,
+                        entropy_threshold=0.001,
+                        mutualinfo_threshold=4,
                         freq_threshold=3)
     for k, v in sorted(word_info.items(),
                        key=lambda x:x[1][0],
