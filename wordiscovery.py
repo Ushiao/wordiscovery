@@ -141,9 +141,9 @@ class WordDiscovery(object):
     
     def parse(self,
               text,
-              entropy_threshold=0.8,
-              mutualinfo_threshold=7,
-              freq_threshold=10):
+              entropy_threshold=0.001,
+              mutualinfo_threshold=4,
+              freq_threshold=2):
         chunks, bchunks = self.preparse(text)
         return self._fetch_final(chunks,
                           bchunks,
@@ -155,9 +155,9 @@ class WordDiscovery(object):
     def _fetch_final(self,
                      chunks,
                      bchunks,
-                     entropy_threshold=0.8,
-                     mutualinfo_threshold=7,
-                     freq_threshold=10):
+                     entropy_threshold=0.001,
+                     mutualinfo_threshold=4,
+                     freq_threshold=2):
         fw_entropy = self.calc_entropy(chunks, self.fw_ngram)
         bw_entropy = self.calc_entropy(bchunks, self.bw_ngram)
         fw_mi = self.calc_mutualinfo(chunks, self.fw_ngram)
